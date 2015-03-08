@@ -537,7 +537,7 @@ int NxpDownload(ISP_ENVIRONMENT *IspEnvironment)
 
 //    char * cmdstr;
     int repeat = 0;
-    // Puffer for data to resend after "RESEND\r\n" Target responce
+    // buffer for data to resend after "RESEND\r\n" Target response
     local_static char sendbuf0[128];
     local_static char sendbuf1[128];
     local_static char sendbuf2[128];
@@ -590,7 +590,9 @@ int NxpDownload(ISP_ENVIRONMENT *IspEnvironment)
 #ifndef Exclude_kbhit
             if (kbhit())
             {
-                if (getch() == 0x1b)
+		char c;
+		c= getch();
+                if (c == 0x1b || c == 0x03)
                 {
                     ResetKeyboardTtySettings();
                     DebugPrintf(2, "\nUser aborted during synchronisation\n");
